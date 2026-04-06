@@ -1,4 +1,4 @@
-from config import get_db_connection
+from conf import get_db_connection
 
 class StudentModel:
 
@@ -27,3 +27,16 @@ class StudentModel:
 
         cursor.close()
         db.close()
+
+    @staticmethod
+    def get_all_students():
+        db = get_db_connection()
+        cursor = db.cursor(dictionary=True)
+
+        cursor.execute("SELECT * FROM students")
+        students = cursor.fetchall()
+
+        cursor.close()
+        db.close()
+
+        return students

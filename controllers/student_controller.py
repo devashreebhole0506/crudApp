@@ -25,9 +25,9 @@ def create_student():
     return jsonify(result)
 
 
-@student_bp.route('/api/getstudents', methods=['POST', 'GET'])
-def create_student():
+@student_bp.route('/api/getstudents', methods=['GET'])
+def get_students():   # ✅ renamed function
 
-    list = StudentService.get_students()
+    students_list = StudentService.get_students()
 
-    return jsonify(list)
+    return jsonify(students_list)
