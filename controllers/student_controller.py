@@ -23,3 +23,11 @@ def create_student():
     result = StudentService.register_student(data)
 
     return jsonify(result)
+
+
+@student_bp.route('/api/getstudents', methods=['POST', 'GET'])
+def create_student():
+
+    list = StudentService.get_students()
+
+    return jsonify(list)
