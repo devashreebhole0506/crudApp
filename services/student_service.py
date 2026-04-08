@@ -14,3 +14,12 @@ class StudentService:
     @staticmethod
     def get_students():
         return StudentModel.get_all_students()
+    @staticmethod
+    def get_student_by_id(student_id):
+        return StudentModel.get_student_by_id(student_id)
+
+    @staticmethod
+    def delete_student_by_id(student_id):
+        return StudentModel.delete_student_by_id(student_id)
+    
+    

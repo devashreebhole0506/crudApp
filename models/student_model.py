@@ -40,3 +40,30 @@ class StudentModel:
         db.close()
 
         return students
+    @staticmethod
+    def get_student_by_id(student_id):
+        db = get_db_connection()
+        cursor = db.cursor(dictionary=True)
+
+        query = "SELECT * FROM students WHERE id = %s"
+        cursor.execute(query, (student_id,))
+        student = cursor.fetchone()
+
+        cursor.close()
+        db.close()
+
+        return student
+    
+    @staticmethod
+    def delete_student_by_id(student_id):
+        db = get_db_connection()
+        cursor = db.cursor(dictionary=True)
+
+        query = "DELETE FROM students WHERE id = %s"
+        cursor.execute(query, (student_id,))
+        db.commit()
+
+        cursor.close()
+        db.close()
+
+        return {"message": "Student Deleted Successfully"}

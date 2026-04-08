@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <title>Students List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e6f2ff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Students Data</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email ID</th>
+                <th>Mobile Number</th>
+                <th>Address</th>
+                <th>Education</th>
+                <th>Gender</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.mobile }}</td>
+                <td>{{ student.address }}</td>
+                <td>{{ student.education }}</td>
+                <td>{{ student.gender }}</td>
+                <td>
+                    <a href="/students/{{ student.id }}">Delete</a>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</body>
+
+</html>

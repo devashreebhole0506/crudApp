@@ -24,10 +24,21 @@ def create_student():
 
     return jsonify(result)
 
-
 @student_bp.route('/api/getstudents', methods=['GET'])
-def get_students():   # ✅ renamed function
+def get_students(): 
 
     students_list = StudentService.get_students()
 
     return jsonify(students_list)
+
+@student_bp.route('/students')
+def show_students():
+    students = StudentService.get_students()
+    return render_template('students.html', students=students)
+
+@student_bp.route('/students/<int:student_id>', methods=['GET'])
+def delete_student(student_id): 
+
+    student = StudentService.delete_student_by_id(student_id)
+
+    return jsonify(student)
