@@ -9,7 +9,7 @@ class StudentModel:
 
         query = """
         INSERT INTO students 
-        (name, address, mobile, email, education, gender)
+        (name, address, mobile, email_id, education, gender)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
 
@@ -17,7 +17,7 @@ class StudentModel:
             data['name'],
             data['address'],
             data['mobile'],
-            data['email'],
+            data['email_id'],
             data['education'],
             data['gender']
         )
@@ -67,3 +67,26 @@ class StudentModel:
         db.close()
 
         return {"message": "Student Deleted Successfully"}
+    
+    @staticmethod
+    def update_student(student_id, data):
+        db = get_db_connection()
+        cursor = db.cursor()
+
+        query = "UPDATE students SET name = %s, address = %s, mobile = %s, email_id = %s, education = %s, gender = %s WHERE id = %s"
+        values = (
+            data['name'],
+            data['address'],
+            data['mobile'],
+            data['email_id'],
+            data['education'],
+            data['gender'],
+            student_id
+        )
+        cursor.execute(query, values)
+        db.commit()
+
+        cursor.close()
+        db.close()
+
+        return {"message": "Student Updated Successfully"}

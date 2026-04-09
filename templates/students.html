@@ -57,6 +57,7 @@
                 <th>Education</th>
                 <th>Gender</th>
                 <th>Delete</th>
+                <th>Edit</th>
 
             </tr>
         </thead>
@@ -66,14 +67,16 @@
             <tr>
                 <td>{{ student.id }}</td>
                 <td>{{ student.name }}</td>
-                <td>{{ student.email }}</td>
+                <td>{{ student.email_id }}</td>
                 <td>{{ student.mobile }}</td>
                 <td>{{ student.address }}</td>
                 <td>{{ student.education }}</td>
                 <td>{{ student.gender }}</td>
                 <td>
-                    <a href="/students/{{ student.id }}">Delete</a>
-
+                    <a href="/students/{{ student.id }}/delete">Delete</a>
+                </td>
+                <td>
+                    <a href="/students/{{ student.id }}/edit">Edit</a>
                 </td>
 
             </tr>
