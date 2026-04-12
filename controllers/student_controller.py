@@ -12,18 +12,23 @@ def form():
 # Create Student
 @student_bp.route('/api/students', methods=['POST'])
 def create_student():
+    
+    StudentService.register_student(request.form)
+    return redirect(url_for('student.show_students'))   
 
-    data = {
-        "name": request.form['name'],
-        "address": request.form['address'],
-        "mobile": request.form['mobile'],
-        "email_id": request.form['email_id'],
-        "education": request.form['education'],
-        "gender": request.form['gender']
-    }
 
-    StudentService.register_student(data)
-    return redirect(url_for('student.show_students'))
+    # data = {
+    #     "name": request.form['name'],
+    #     "address": request.form['address'],
+    #     "mobile": request.form['mobile'],
+    #     "email_id": request.form['email_id'],
+    #     "education": request.form['education'],
+    #     "department": request.form['department'],
+    #     "gender": request.form['gender']
+    # }
+
+    # StudentService.register_student(data)
+    # return redirect(url_for('student.show_students'))
 
 
 # Show Students

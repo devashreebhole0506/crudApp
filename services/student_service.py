@@ -36,10 +36,11 @@ class StudentService:
             "mobile": data.get('mobile', student['mobile']),
             "email_id": data.get('email_id', student['email_id']),
             "education": data.get('education', student['education']),
+            "department": data.get('department', student['department']),
             "gender": data.get('gender', student['gender'])
         }
 
-        # ✅ IMPORTANT FIX
+        # IMPORTANT FIX
         StudentModel.update_student(student_id, updated_data)
 
         return {"message": "Student Updated Successfully"}

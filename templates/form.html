@@ -1,52 +1,128 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <title>Student Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(to right, #74ebd5, #9face6);
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        /* ✅ FIXED INPUT ALIGNMENT */
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* ✅ TEXTAREA HEIGHT FIX */
+        textarea {
+            resize: none;
+        }
+
+        /* ✅ GENDER ALIGNMENT */
+        .gender-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .gender-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h2>Registration Form</h2>
+    <div class="container">
 
-    <form action="/api/students" method="post">
+        <h2>Registration Form</h2>
 
+        <form action="/api/students" method="post">
 
-        <label>Full Name:</label><br>
-        <input type="text" name="name" required><br><br>
+            <label>Full Name:</label>
+            <input type="text" name="name" required>
 
+            <label>Address:</label>
+            <textarea name="address" rows="4" required></textarea>
 
-        <label>Address:</label><br>
-        <textarea name="address" rows="4" cols="30" required></textarea><br><br>
+            <label>Mobile Number:</label>
+            <input type="tel" name="mobile" pattern="[0-9]{10}" placeholder="Enter 10 digit number" required>
 
+            <label>Email ID:</label>
+            <!-- ✅ FIXED TYPE -->
+            <input type="email" name="email" required>
 
-        <label>Mobile Number:</label><br>
-        <input type="tel" name="mobile" pattern="[0-9]{10}" placeholder="Enter 10 digit number" required><br><br>
+            <label>Education:</label>
+            <select name="education" required>
+                <option value="">--Select--</option>
+                <option>SSC</option>
+                <option>HSC</option>
+                <option>Diploma</option>
+                <option>Graduate</option>
+                <option>Postgraduate</option>
+            </select>
 
+            <label>Department:</label>
+            <select name="department" required>
+                <option value="">--Select--</option>
+                <option>Computer Science</option>
+                <option>Mechanical</option>
+                <option>Electrical</option>
+                <option>Civil</option>
+                <option>Chemical</option>
+                <option>Electronics</option>
+            </select>
 
-        <label>Email ID:</label><br>
-        <input type="email_id" name="email_id" required><br><br>
+            <label>Gender:</label>
+            <div class="gender-group">
+                <label><input type="radio" name="gender" value="Male" required> Male</label>
+                <label><input type="radio" name="gender" value="Female"> Female</label>
+                <label><input type="radio" name="gender" value="Other"> Other</label>
+            </div>
 
+            <button type="submit">Submit</button>
 
-        <label>Education:</label><br>
-        <select name="education" required>
-            <option value="">--Select--</option>
-            <option value="SSC">SSC</option>
-            <option value="HSC">HSC</option>
-            <option value="Diploma">Diploma</option>
-            <option value="Graduate">Graduate</option>
-            <option value="Postgraduate">Postgraduate</option>
-        </select><br><br>
+        </form>
 
-
-        <label>Gender:</label><br>
-        <input type="radio" name="gender" value="Male" required> Male
-        <input type="radio" name="gender" value="Female"> Female
-        <input type="radio" name="gender" value="Other"> Other
-        <br><br>
-
-        <input type="submit" value="Submit">
-
-    </form>
+    </div>
 
 </body>
 

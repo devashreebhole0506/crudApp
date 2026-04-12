@@ -1,6 +1,24 @@
+from os import name
+
 from conf import get_db_connection
 
 class StudentModel:
+    name = None
+    address = None
+    mobile = None
+    email_id = None
+    education = None
+    department = None
+    gender = None
+    
+    def __init__(self, name, address, mobile, email_id, education, department, gender):
+        self.name = name
+        self.address = address
+        self.mobile = mobile
+        self.email_id = email_id
+        self.education = education
+        self.department = department
+        self.gender = gender
 
     @staticmethod
     def save_student(data):
@@ -9,8 +27,8 @@ class StudentModel:
 
         query = """
         INSERT INTO students 
-        (name, address, mobile, email_id, education, gender)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        (name, address, mobile, email_id, education, department, gender)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -19,6 +37,7 @@ class StudentModel:
             data['mobile'],
             data['email_id'],
             data['education'],
+            data['department'],
             data['gender']
         )
 
@@ -40,6 +59,7 @@ class StudentModel:
         db.close()
 
         return students
+    
     @staticmethod
     def get_student_by_id(student_id):
         db = get_db_connection()
@@ -80,6 +100,7 @@ class StudentModel:
             data['mobile'],
             data['email_id'],
             data['education'],
+            data['department'],
             data['gender'],
             student_id
         )
