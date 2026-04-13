@@ -1,34 +1,25 @@
-from flask import Blueprint, request, jsonify, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for
 from services.student_service import StudentService
+from forms.student_form import StudentForm
 
 student_bp = Blueprint('student', __name__)
 
-# Form
+# Form Page
 @student_bp.route('/')
 def form():
     return render_template('form.html')
 
 
-# Create Student
+# CREATE STUDENT
 @student_bp.route('/api/students', methods=['POST'])
 def create_student():
-    
-    StudentService.register_student(request.form)
-    return redirect(url_for('student.show_students'))   
+    form = StudentForm(request.form)
 
+    if not form.is_valid():
+        return render_template('form.html', errors=form.errors)
 
-    # data = {
-    #     "name": request.form['name'],
-    #     "address": request.form['address'],
-    #     "mobile": request.form['mobile'],
-    #     "email_id": request.form['email_id'],
-    #     "education": request.form['education'],
-    #     "department": request.form['department'],
-    #     "gender": request.form['gender']
-    # }
-
-    # StudentService.register_student(data)
-    # return redirect(url_for('student.show_students'))
+    StudentService.register_student(form.cleaned_data())
+    return redirect(url_for('student.show_students'))
 
 
 # Show Students
@@ -38,23 +29,22 @@ def show_students():
     return render_template('students.html', students=students)
 
 
-# DELETE (FIXED)
+# DELETE
 @student_bp.route('/students/<int:student_id>/delete')
 def delete_student(student_id):
     StudentService.delete_student_by_id(student_id)
     return redirect(url_for('student.show_students'))
 
 
-# EDIT PAGE (FIXED)
+# EDIT PAGE
 @student_bp.route('/students/<int:student_id>/edit')
 def edit_student(student_id):
     student = StudentService.get_student_by_id(student_id)
     return render_template('edit.html', student=student)
 
 
-# UPDATE (NEW)
+# UPDATE
 @student_bp.route('/students/<int:student_id>/update', methods=['POST'])
 def update_student(student_id):
-    data = request.form
-    StudentService.update_student(student_id, data)
+    StudentService.update_student(student_id, request.form)
     return redirect(url_for('student.show_students'))

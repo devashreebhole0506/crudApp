@@ -1,24 +1,6 @@
-from os import name
-
 from conf import get_db_connection
 
 class StudentModel:
-    name = None
-    address = None
-    mobile = None
-    email_id = None
-    education = None
-    department = None
-    gender = None
-    
-    def __init__(self, name, address, mobile, email_id, education, department, gender):
-        self.name = name
-        self.address = address
-        self.mobile = mobile
-        self.email_id = email_id
-        self.education = education
-        self.department = department
-        self.gender = gender
 
     @staticmethod
     def save_student(data):
@@ -43,7 +25,6 @@ class StudentModel:
 
         cursor.execute(query, values)
         db.commit()
-
         cursor.close()
         db.close()
 
@@ -53,61 +34,60 @@ class StudentModel:
         cursor = db.cursor(dictionary=True)
 
         cursor.execute("SELECT * FROM students")
-        students = cursor.fetchall()
+        data = cursor.fetchall()
 
         cursor.close()
         db.close()
+        return data
 
-        return students
-    
     @staticmethod
     def get_student_by_id(student_id):
         db = get_db_connection()
         cursor = db.cursor(dictionary=True)
 
-        query = "SELECT * FROM students WHERE id = %s"
-        cursor.execute(query, (student_id,))
+        cursor.execute("SELECT * FROM students WHERE id=%s", (student_id,))
         student = cursor.fetchone()
 
         cursor.close()
         db.close()
-
         return student
-    
+
     @staticmethod
     def delete_student_by_id(student_id):
         db = get_db_connection()
-        cursor = db.cursor(dictionary=True)
+        cursor = db.cursor()
 
-        query = "DELETE FROM students WHERE id = %s"
-        cursor.execute(query, (student_id,))
+        cursor.execute("DELETE FROM students WHERE id=%s", (student_id,))
         db.commit()
 
         cursor.close()
         db.close()
 
-        return {"message": "Student Deleted Successfully"}
-    
     @staticmethod
     def update_student(student_id, data):
         db = get_db_connection()
         cursor = db.cursor()
 
-        query = "UPDATE students SET name = %s, address = %s, mobile = %s, email_id = %s, education = %s, gender = %s WHERE id = %s"
+        query = """
+        UPDATE students 
+        SET name=%s, address=%s, mobile=%s, email_id=%s, 
+            education=%s, department=%s, gender=%s
+        WHERE id=%s
+        """
+
         values = (
             data['name'],
             data['address'],
             data['mobile'],
             data['email_id'],
             data['education'],
-            data['department'],
+            data['department'],   # ✅ FIXED (was missing)
             data['gender'],
             student_id
         )
+
         cursor.execute(query, values)
         db.commit()
 
         cursor.close()
         db.close()
-
-        return {"message": "Student Updated Successfully"}
